@@ -7,6 +7,15 @@ SELECT * FROM animals WHERE neutered = TRUE;
 SELECT * FROM animals WHERE name <> 'Gabumon';
 SELECT * FROM animals WHERE weight_kg >= 10.4 AND weight_kg <= 17.3;
 
+-- Update the species column to 'unspecified'
+BEGIN;
+UPDATE animals
+SET species = 'unspecified';
+SELECT * FROM animals;
+ROLLBACK;
+SELECT * FROM animals;
+
+
 --UPDATE SPECIES COLUMN
 
 BEGIN;
@@ -21,6 +30,13 @@ SELECT * FROM animals;
 
 COMMIT;
 SELECT * FROM animals;
+
+-- Delete all records in the animals table
+
+BEGIN;
+DELETE FROM animals;
+ROLLBACK;
+
 
 --DELETE 2022 BORN
 
