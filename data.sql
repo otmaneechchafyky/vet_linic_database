@@ -34,33 +34,6 @@ UPDATE animals SET owner_id=3 WHERE name IN ('Devimon','Plantmon');
 UPDATE animals SET owner_id=4 WHERE name IN ('Charmander','Squirtle','Blossom');
 UPDATE animals SET owner_id=5 WHERE name IN ('Angemon','Boarmon');
 
---Answer questions 
-SELECT * FROM animals INNER JOIN owners ON animals.owner_id = owners.id WHERE owners.full_name='Melody Pond';
-SELECT animals.* FROM animals
-LEFT JOIN species ON animals.species_id = species.id
-WHERE species.name = 'Pokemon';
-
-SELECT owners.full_name AS owner_name , animals.name AS animal_name
-FROM owners
-LEFT JOIN animals ON owners.id = animals.owner_id; 
-
-SELECT species.name, COUNT(*) FROM animals
-INNER JOIN species ON animals.species_id = species.id
-INNER JOIN owners ON animals.owner_id = owners.id
-GROUP BY species.name;
-
-SELECT * FROM animals 
-INNER JOIN owners ON animals.owner_id = owners.id
-INNER JOIN species ON animals.species_id = species.id
-WHERE owners.full_name = 'Jennifer Orwell' AND species.name = 'Digimon';
-
-SELECT * FROM animals 
-INNER JOIN owners ON animals.owner_id = owners.id
-WHERE owners.full_name = 'Dean Winchester' AND animals.escape_attempts = 0;
-
-SELECT owners.full_name, COUNT(*) FROM animals 
-INNER JOIN owners ON animals.owner_id = owners.id GROUP BY owners.full_name;
-
 --INSERT data into vets
 INSERT INTO vets (name, age, date_of_graduation) VALUES ('William Tatcher', 45, '2000-04-23');
 INSERT INTO vets (name, age, date_of_graduation) VALUES ('Maisy Smith', 26, '2019-01-17');
