@@ -39,7 +39,6 @@ ROLLBACK;
 
 
 --DELETE 2022 BORN
-
 BEGIN;
 
 DELETE FROM animals
@@ -60,7 +59,6 @@ COMMIT;
 SELECT * FROM animals;
 
 --RESPOND QUESTS
-
 SELECT COUNT(*) name FROM animals;
 
 SELECT COUNT(*) name FROM animals WHERE escape_attempts = 0;
