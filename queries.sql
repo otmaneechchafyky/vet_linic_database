@@ -39,7 +39,6 @@ ROLLBACK;
 
 
 --DELETE 2022 BORN
-
 BEGIN;
 
 DELETE FROM animals
@@ -59,8 +58,7 @@ WHERE weight_kg < 0;
 COMMIT;
 SELECT * FROM animals;
 
---RESPOND QUESTS
-
+--ANSWER QUESTS PART 1
 SELECT COUNT(*) name FROM animals;
 
 SELECT COUNT(*) name FROM animals WHERE escape_attempts = 0;
@@ -81,3 +79,98 @@ WHERE date_of_birth BETWEEN '1990-01-01' AND '2000-12-31'
 GROUP BY species;
 
 UPDATE animals SET species_id 
+
+--ANSWER QUESTS PART2
+SELECT * FROM animals INNER JOIN owners ON animals.owner_id = owners.id WHERE owners.full_name='Melody Pond';
+SELECT animals.* FROM animals
+LEFT JOIN species ON animals.species_id = species.id
+WHERE species.name = 'Pokemon';
+
+SELECT owners.full_name AS owner_name , animals.name AS animal_name
+FROM owners
+LEFT JOIN animals ON owners.id = animals.owner_id; 
+
+SELECT species.name, COUNT(*) FROM animals
+INNER JOIN species ON animals.species_id = species.id
+INNER JOIN owners ON animals.owner_id = owners.id
+GROUP BY species.name;
+
+SELECT * FROM animals 
+INNER JOIN owners ON animals.owner_id = owners.id
+INNER JOIN species ON animals.species_id = species.id
+WHERE owners.full_name = 'Jennifer Orwell' AND species.name = 'Digimon';
+
+SELECT * FROM animals 
+INNER JOIN owners ON animals.owner_id = owners.id
+WHERE owners.full_name = 'Dean Winchester' AND animals.escape_attempts = 0;
+
+SELECT owners.full_name, COUNT(*) FROM animals 
+INNER JOIN owners ON animals.owner_id = owners.id GROUP BY owners.full_name;
+
+--ANSWER QUESTS PART3
+SELECT a.name AS animal_name
+FROM animals AS a
+JOIN visits AS v ON a.id = v.animal_id
+JOIN vets AS vet ON vet.id = v.vet_id
+WHERE vet.name = 'William Tatcher'
+ORDER BY v.visit_date DESC
+LIMIT 1;
+
+SELECT COUNT(DISTINCT v.animal_id) AS animal_count
+FROM visits AS v
+JOIN vets AS vet ON vet.id = v.vet_id
+WHERE vet.name = 'Stephanie Mendez';
+
+SELECT vets.name AS vet_name, species.name AS specialty
+FROM vets
+LEFT JOIN specializations ON vets.id = specializations.vet_id
+LEFT JOIN species ON specializations.species_id = species.id
+ORDER BY vet_name;
+
+SELECT animals.name AS animal_name
+FROM animals
+JOIN visits ON animals.id = visits.animal_id
+JOIN vets ON vets.id = visits.vet_id
+WHERE vets.name = 'Stephanie Mendez'
+  AND visits.visit_date >= '2020-04-01'
+  AND visits.visit_date <= '2020-08-30';
+
+SELECT animals.name AS animal_name, COUNT(visits.id) AS visit_count
+FROM animals
+JOIN visits ON animals.id = visits.animal_id
+GROUP BY animals.id
+ORDER BY visit_count DESC
+LIMIT 1;
+
+SELECT animals.name AS animal_name
+FROM animals
+JOIN visits ON animals.id = visits.animal_id
+JOIN vets ON vets.id = visits.vet_id
+WHERE vets.name = 'Maisy Smith'
+ORDER BY visits.visit_date
+LIMIT 1;
+
+SELECT animals.name AS animal_name, vets.name AS vet_name, visits.visit_date
+FROM visits
+JOIN animals ON animals.id = visits.animal_id
+JOIN vets ON vets.id = visits.vet_id
+ORDER BY visits.visit_date DESC
+LIMIT 1;
+
+SELECT COUNT(*) AS mismatched_specialties_count
+FROM visits AS v
+JOIN animals AS a ON v.animal_id = a.id
+JOIN vets AS vet ON vet.id = v.vet_id
+LEFT JOIN specializations AS s ON vet.id = s.vet_id AND a.species_id = s.species_id
+WHERE s.id IS NULL;
+
+SELECT sp.name AS specialty, COUNT(*) AS visit_count
+FROM visits AS v
+JOIN animals AS a ON v.animal_id = a.id
+JOIN vets AS vet ON vet.id = v.vet_id
+JOIN specializations AS s ON vet.id = s.vet_id
+JOIN species AS sp ON sp.id = s.species_id
+WHERE vet.name = 'Maisy Smith'
+GROUP BY sp.id
+ORDER BY visit_count DESC
+LIMIT 1;
