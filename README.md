@@ -2,7 +2,9 @@
 
 <div align="center">
   <!-- You are encouraged to replace this logo with your own! Otherwise you can also remove it. -->
-  <img src="./assets/pf-logo.png" alt="logo" width="140"  height="auto" />
+  <img src="./assets/diagram.png" alt="logo" width="140"  height="auto" />
+  <h2>Database schema's diagram</h2><br>
+  <img src="./assets/sche" alt="logo" width="140"  height="auto" />
   <br/>
 
   <h3><b>Welcome to my project</b></h3>
