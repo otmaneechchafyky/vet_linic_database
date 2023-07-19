@@ -2,7 +2,7 @@
 
 <div align="center">
   <h2>Database schema's diagram</h2><br>
-  <img src="./assets/diagram.png" alt="logo" width="140"  height="auto" />
+  <img src="./assets/diagram.png" alt="logo"/>
   <br/>
 
   <h3><b>Welcome to my project</b></h3>
